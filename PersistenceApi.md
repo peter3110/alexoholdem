@@ -1,0 +1,7 @@
+  * Replay objects can be persisted and retrieved efficiently using an API built on top of Berkeley DB.  All data files are stored inside a specified data environment directory.
+  * The main API is HoldemDao, to create it you need a HoldemDb which takes the environment directory.  From the HoldemDb you can create a HoldemViews object.  You need both a HoldemDb and its corresponding HoldemViews object to create a HoldemDao object.
+  * To store replays, you can use `HoldemDao.persist(Replay)` and to retrieve them use:<br><code>retrieve(withPlayer: Avatar): List&lt;Replay&gt;</code> <br> <code>retrieve(withPlayer: Avatar, numLatest: int): List&lt;Replay&gt;</code>
+<ul><li>For convenience purposes, you can also use:<br><code>HoldemDao.mostPrevalent(howMany: int): Map&lt;Avatar, Integer&gt;</code> to get upto howMany of the Avatars which played the most games, and for each Avatar the number of games that they played.<br>
+</li><li>To facilitate the persistence API, the following classes are used:<br> EnumBinding for binding enumerations with Berkeley DB Java Edition <br> GenericBinding for binding other types of objects with DBD JE.<br>
+</li><li>Each Replay has a UniqueId which is ordered by creation type.<br>
+</li><li>The following classes have code in them to allow them to be persisted:<br> UniqueId, Avatar, Card, Hole, Community, Action, ChipStack.
